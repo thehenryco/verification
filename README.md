@@ -70,12 +70,12 @@ If you find an issue, open an issue.
 
 ## About
 
-The Henry Company reads your existing ERP data and shows you where value disappears — dollar amounts, specific handoffs, verified. Not estimated.
+The Henry Company reads your existing ERP data and shows you where value disappears. Dollar amounts, specific handoffs, verified. Not estimated.
 
-[thehenrycompany.com](https://thehenrycompany.com) | [thehenrycompany.com/verify](https://thehenrycompany.com/verify) | jerod.harbor@thehenrycompany.com
+[thehenrycompany.com](https://thehenrycompany.com) | [Verify](https://thehenrycompany.com/verify) | jerod.harbor@thehenrycompany.com
 
 ---
 
 ## License
 
-MIT — The verification script is free. The instrument is not.
+MIT. The verification script is free. The instrument is not.
