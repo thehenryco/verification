@@ -307,7 +307,7 @@ def run_shake(zip_bytes):
 
                     if "Output" in cur:
                         msg_hex = cur.get("Msg", "")
-                        msg = bytes.fromhex(msg_hex) if msg_hex else b""
+                        msg = bytes.fromhex(msg_hex) if msg_hex and int(cur.get("Len","1")) > 0 else b""
                         expected = cur["Output"].lower()
                         computed = hashlib.new(hashlib_name, msg).hexdigest(outlen // 8)
                         if computed == expected:
