@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+.DS_Store
+nist_crypto_suite_verification.json
+nist_crypto_suite_verification_seal.json
