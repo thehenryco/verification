@@ -923,7 +923,7 @@ def run_wp_aes_cmac_wp():
                         key = bytes.fromhex(tc["key"]); msg = bytes.fromhex(tc.get("msg",""))
                         tag = bytes.fromhex(tc["tag"])
                         cm = cmac_crypto.CMAC(algorithms.AES(key),backend=default_backend()); cm.update(msg)
-                        v2 = cm.finalize()[:tl] == tag
+                        v2 = cm.finalize()[:len(tag)] == tag
                         if wp_ok(tc["result"],v2): fp += 1
                         ft += 1
                     except: ft += 1
@@ -1045,7 +1045,7 @@ def run_wp_primality():
                         val = int(tc.get("value","0"),16)
                         expected_prime = tc["result"] == "valid"
                         actual = is_prime_miller_rabin(val, 40)
-                        if expected_prime == actual: fp += 1
+                        if wp_ok(tc["result"], actual): fp += 1
                         ft += 1
                     except: ft += 1
             print(f"  {fp}/{ft} {'✅' if fp==ft else '❌'}"); t += ft; p += fp
