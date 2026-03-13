@@ -589,7 +589,7 @@ def run_wp_chacha():
 
 def run_wp_hmac():
     t = p = 0; res = {}
-    HM2 = {"sha1":"sha1","sha224":"sha224","sha256":"sha256","sha384":"sha384","sha512":"sha512"}
+    HM2 = {"sha1":"sha1","sha224":"sha224","sha256":"sha256","sha384":"sha384","sha512":"sha512","sha3_256":"sha3_256","sha3_512":"sha3_512"}
     for fname in WYCHEPROOF_FILES["WP_HMAC"]:
         try:
             data = dlj(f"{WP_BASE}/{fname}"); ft = fp = 0
@@ -614,7 +614,7 @@ def run_wp_hmac():
 def run_wp_ecdsa():
     t = p = 0; res = {}
     CURVES = {"secp224r1":ec.SECP224R1(),"secp256r1":ec.SECP256R1(),"secp384r1":ec.SECP384R1(),"secp521r1":ec.SECP521R1()}
-    HASHES = {"SHA-224":ch.SHA224(),"SHA-256":ch.SHA256(),"SHA-384":ch.SHA384(),"SHA-512":ch.SHA512()}
+    HASHES = {"SHA-224":ch.SHA224(),"SHA-256":ch.SHA256(),"SHA-384":ch.SHA384(),"SHA-512":ch.SHA512(),"SHA3-256":ch.SHA3_256(),"SHA3-384":ch.SHA3_384(),"SHA3-512":ch.SHA3_512()}
     for fname in WYCHEPROOF_FILES["WP_ECDSA"]:
         try:
             data = dlj(f"{WP_BASE}/{fname}"); ft = fp = 0
@@ -668,7 +668,7 @@ def run_wp_rsa_pkcs1():
 # FIX: RSA PSS — use publicKeyDer field
 def run_wp_rsa_pss():
     t = p = 0; res = {}
-    HASHES = {"SHA-256":ch.SHA256(),"SHA-384":ch.SHA384(),"SHA-512":ch.SHA512()}
+    HASHES = {"SHA-1":ch.SHA1(),"SHA-256":ch.SHA256(),"SHA-384":ch.SHA384(),"SHA-512":ch.SHA512()}
     for fname in WYCHEPROOF_FILES["WP_RSA_PSS"]:
         try:
             data = dlj(f"{WP_BASE}/{fname}"); ft = fp = 0
@@ -2091,7 +2091,7 @@ def main():
 
     if ok:
         print(f"  ✅ VERDICT: ALL {gt:,} TEST VECTORS PASSED")
-        print(f"             {len(AR)} SUITES — 5 LAYERS")
+        print(f"             {len(AR)} SUITES — 12 LAYERS")
     else:
         print(f"  ❌ VERDICT: {gt-gp:,} TEST VECTORS FAILED")
 
@@ -2127,7 +2127,7 @@ def main():
     print("    Wycheproof:   https://github.com/google/wycheproof")
     print()
     print("  ╔"+"═"*66+"╗")
-    print("  ║"+"Ten layers. Every test. Every attack. Every seal verified.".center(66)+"║")
+    print("  ║"+"Twelve layers. Every test. Every attack. Every seal verified.".center(66)+"║")
     print("  ╚"+"═"*66+"╝")
     print()
     return ok
