@@ -926,7 +926,10 @@ def run_wp_aes_cmac_wp():
                         v2 = cm.finalize()[:len(tag)] == tag
                         if wp_ok(tc["result"],v2): fp += 1
                         ft += 1
-                    except: ft += 1
+                    except:
+                        # Exception = operation failed = valid is False
+                        if wp_ok(tc.get("result","valid"),False): fp += 1
+                        ft += 1
             print(f"  {fp}/{ft} {'✅' if fp==ft else '❌'}"); t += ft; p += fp
             res[fname] = {"total":ft,"passed":fp,"failed":ft-fp}
         except Exception as e: print(f"  ❌ {e}")
@@ -1042,9 +1045,13 @@ def run_wp_primality():
             for grp in data.get("testGroups",[]):
                 for tc in grp.get("tests",[]):
                     try:
-                        val = int(tc.get("value","0"),16)
-                        expected_prime = tc["result"] == "valid"
-                        actual = is_prime_miller_rabin(val, 40)
+                        val_hex = tc.get("value","0")
+                        val = int(val_hex, 16)
+                        # Wycheproof uses signed integers: high bit set = negative = not prime
+                        if val_hex[0] in "89abcdefABCDEF":
+                            actual = False  # negative number, not prime
+                        else:
+                            actual = is_prime_miller_rabin(val, 40)
                         if wp_ok(tc["result"], actual): fp += 1
                         ft += 1
                     except: ft += 1
